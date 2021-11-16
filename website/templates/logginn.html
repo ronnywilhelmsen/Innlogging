@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+    {% block title %} Logg inn {% endblock %}
+
+{% block content %}
+    <h1>Dette er logg-inn-siden</h1>
+    {{ text }}
+
+<form method="post">
+        <h3>Logg inn</h3>
+        <div class="form-group">
+            <label for="epost">Epostadresse</label>
+            <input
+                    type="epost"
+                    class="form-control"
+                    id="epost"
+                    name="epost"
+                    placeholder="Skriv inn din epostadresse">
+        </div>
+
+        <div class="form-group">
+                <label for="passord">Passord</label>
+                <input
+                        type="password"
+                        class="form-control"
+                        id="passord"
+                        name="passord"
+                        placeholder="Skriv inn ditt passord">
+        </div>
+
+        <br/>
+        <button type="submit" class="btn btn-primary">Logg inn</button>
+    </form>
+
+{% endblock %}

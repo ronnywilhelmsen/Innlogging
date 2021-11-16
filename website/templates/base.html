@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nb">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -11,6 +11,31 @@
     <title>{% block title %} Home {% endblock %}</title>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav">
+
+          <a class="nav-item nav-link" id="home" href="/">Home</a>
+          <a class="nav-item nav-link" id="loggut" href="/loggut">Logg ut</a>
+
+          <a class="nav-item nav-link" id="logginn" href="/logginn">Logg inn</a>
+          <a class="nav-item nav-link" id="registrer_deg" href="/registrer_deg">Registrer deg</a>
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">{% block content %} {% endblock %}</div>
+
      <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -30,6 +55,7 @@
     <script
       type="text/javascript"
       src="{{ url_for('static', filename='index.js') }}"
+
     ></script>
 </body>
 </html>
