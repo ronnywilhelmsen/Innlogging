@@ -34,6 +34,28 @@
       </div>
     </nav>
 
+    {% with meldinger = get_flashed_messages(with_categories=true) %}
+    {% if meldinger %}
+        {% for category, melding in meldinger %}
+            {% if category == 'feil' %}
+            <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                {{ melding }}
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% else %}
+            <div class="alert alert-success alert-dismissable fade show" role="alert">
+                {{ melding }}
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
     <div class="container">{% block content %} {% endblock %}</div>
 
      <script
