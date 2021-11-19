@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Prototypen -> Innlogging: Ber om brukerinformasjon
+Innlogging --> Prototypen: Får brukerinformasjon
+
+Prototypen -> Innlogging: Ber om brukerinformasjon
+Innlogging  -> Prototypen: Another authentication Request
+
+@enduml
