@@ -1,4 +1,8 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from werkzeug.security import generate_password_hash
+
+from . import db
+from .models import User
 
 auth = Blueprint('auth', __name__)
 
@@ -15,6 +19,7 @@ def registrer_deg():
         etternavn = request.form.get('etternavn')
         passord1 = request.form.get('passord1')
         passord2 = request.form.get('passord2')
+        rolle = request.form.get('rolle')
 
         if len(epost) < 4:
             flash('Epostadresse må være over 3 tegn.', category='feil')
@@ -26,9 +31,15 @@ def registrer_deg():
             flash('Passord må være like.', category='feil')
         elif len(passord1) < 7:
             flash('Passord må være større enn 6 tegn, minimum 7.', category='feil')
+        elif rolle != "Admin" or rolle != "Auksjonær" or rolle != "Butikkeier":
+            flash('Rolle kan bare være Admin, Auksjonær eller Butikkeier')
         else:
             # legg til bruker i databasen
+            ny_bruker = User(epost=epost, fornavn=fornavn, etternavn=etternavn, passord=generate_password_hash(passord1, method='sha256'), rolle=rolle)
+            db.session.add(ny_bruker)
+            db.session.commit()
             flash('Konto opprettet!', category='korrekt')
+            return redirect(url_for('views.home'))
 
     return render_template("registrer_deg.html")
 
