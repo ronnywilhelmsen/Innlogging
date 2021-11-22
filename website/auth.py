@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from flask_login import login_user
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from . import db
@@ -24,7 +24,7 @@ def logginn():
         else:
             flash('Epostadressen ekstisterer ikke.', category='feil')
 
-    return render_template("logginn.html", text="Testing")
+    return render_template("logginn.html", text="Testing", user=current_user)
 
 @auth.route('/registrer_deg', methods=['GET', 'POST'])
 def registrer_deg():
@@ -61,11 +61,13 @@ def registrer_deg():
             flash('Konto opprettet!', category='korrekt')
             return redirect(url_for('views.home'))
 
-    return render_template("registrer_deg.html")
+    return render_template("registrer_deg.html", user=current_user)
 
 @auth.route('/loggut')
+@login_required
 def loggut():
-    return "<h1> Logget ut. <h1>"
+    logout_user()
+    return redirect(url_for('auth.logginn'))
 
 
 
